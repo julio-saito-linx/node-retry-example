@@ -1,13 +1,18 @@
 #!/usr/bin/env node
-var method = process.argv.slice(2)[0];
-if (method !== 'fibonacci' && method !== 'exponential') {
+var argv = process.argv.slice(2);
+var wait = argv[0] || 10;
+var method = argv[1];
+if (!method) {
+  method = 'fibonacci';
+} else if (method !== 'fibonacci' && method !== 'exponential') {
   console.log('method invalid:', method);
   console.log('use `exponential` or `fibonacci`');
   process.exit(1);
 }
+
+wait = wait * 1000;
 var backoff = require('backoff');
 var sum = 0;
-var wait = 10 * 1000;
 var exp = backoff[method]({
   randomisationFactor: 0.4,
   initialDelay: 100,
@@ -15,7 +20,7 @@ var exp = backoff[method]({
 });
 
 
-console.log('Wait', wait + 'ms');
+console.log('Wait', wait + 'ms', "with method", method);
 
 exp.on('backoff', function(number, delay) {
   var timeout = sum;
