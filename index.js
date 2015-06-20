@@ -4,23 +4,16 @@ var faultTolerantGetRandom = require('./faultTolerantGetRandom');
 console.time('timespent');
 
 // retry options
+var maxWait = 5;
 var opts = {
   retries: 100,
-  factor: 1.03,
-  minTimeout: 5,
-  maxTimeout: 100,
+  factor: 1.2,
+  minTimeout: 1 * 100,
+  maxTimeout: maxWait * 1000,
   randomize: true,
 
-  maxTotalTimeout: 2000,
+  maxTotalTimeout: maxWait * 1000,
   showTimeoutsArray: false
-};
-
-var wait = 20;
-opts = {
-  factor: 1.2,
-  minTimeout: 1 * 1000,
-  maxTimeout: wait * 1000,
-  randomize: true
 };
 
 faultTolerantGetRandom(opts, function(err, errors, resultString) {
