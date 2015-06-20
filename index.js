@@ -17,6 +17,7 @@ var opts = {
 
 var wait = 20;
 opts = {
+  factor: 1.2,
   minTimeout: 1 * 1000,
   maxTimeout: wait * 1000,
   randomize: true
