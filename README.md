@@ -8,13 +8,13 @@
 azk shell
 
 # execute node
-root@xxxx:/azk/example# npm i
-root@xxxx:/azk/example# node index.js
+azk shell --command='npm install'
+azk shell --command='node index.js'
 ```
 
 ## with node instaled
 
 ```sh
-npm i
+npm install
 node index.js
 ```

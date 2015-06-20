@@ -12,18 +12,20 @@ module.exports = function faultTolerantGetRandom(opts, cb) {
 
   var startTime = new Date();
 
-  // should we kill process?
+  // setInterval
   var totalSeconds = 0;
   console.log(totalSeconds + 's');
   var tid = setInterval(function() {
     totalSeconds++;
     console.log(totalSeconds + 's');
     if (totalSeconds * 1000 >= opts.maxTotalTimeout) {
+      // TODO: should we kill process here
       console.log('clearInterval(tid)');
-      return clearInterval(tid);
+      clearInterval(tid);
     }
   }, 1000);
 
+  // retry.operation
   var operation = retry.operation(opts);
   operation.attempt(function(currentAttempt) {
 
@@ -52,9 +54,8 @@ module.exports = function faultTolerantGetRandom(opts, cb) {
         return;
       }
 
-      // if ( (new Date()) - start_time >= maxTotalTimeout) {
-      //   return;
-      // }
+      console.log('clearInterval(tid)');
+      clearInterval(tid);
 
       cb(operation.mainError(), operation.errors(), resultString);
     });
