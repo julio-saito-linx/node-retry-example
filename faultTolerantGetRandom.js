@@ -6,10 +6,23 @@ module.exports = function faultTolerantGetRandom(opts, cb) {
   // show timeouts array
   if (opts.showTimeoutsArray) {
     var timeoutsArray = retry.timeouts(opts);
-    console.log(timeoutsArray.join('  '));
+    /**/console.log('\n>>---------\n timeoutsArray:\n',/*-debug-*/
+    /**/  require('util').inspect(timeoutsArray, { showHidden: false, depth: null, colors: true }), '\n>>---------\n');/*-debug-*/
   }
 
   var startTime = new Date();
+
+  // should we kill process?
+  var totalSeconds = 0;
+  console.log(totalSeconds + 's');
+  var tid = setInterval(function() {
+    totalSeconds++;
+    console.log(totalSeconds + 's');
+    if (totalSeconds * 1000 >= opts.maxTotalTimeout) {
+      console.log('clearInterval(tid)');
+      return clearInterval(tid);
+    }
+  }, 1000);
 
   var operation = retry.operation(opts);
   operation.attempt(function(currentAttempt) {
