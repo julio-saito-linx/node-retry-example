@@ -1,0 +1,12 @@
+{
+  "name": "node-retry-example",
+  "version": "0.0.1",
+  "description": "tests for node-retry",
+  "main": "index.js",
+  "author": "saitodisse",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "bluebird": "^2.9.30",
+    "retry": "^0.6.1"
+  }
+}
