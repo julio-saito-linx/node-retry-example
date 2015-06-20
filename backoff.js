@@ -19,8 +19,7 @@ var exp = backoff[method]({
   maxDelay: wait
 });
 
-
-console.log('Wait', wait + 'ms', "with method", method);
+console.log('Wait', wait + 'ms', 'with method', method);
 
 exp.on('backoff', function(number, delay) {
   var timeout = sum;
@@ -28,7 +27,7 @@ exp.on('backoff', function(number, delay) {
   if (sum < wait) {
     console.log('Backoff start:', number, delay + 'ms');
   } else {
-    exp.emit("fail", new Error('Timeout ' + timeout + 'ms'), timeout);
+    exp.emit('fail', new Error('Timeout ' + timeout + 'ms'), timeout);
     exp.reset();
   }
 });
