@@ -10,8 +10,6 @@ module.exports = function faultTolerantGetRandom(opts, cb) {
     /**/  require('util').inspect(timeoutsArray, { showHidden: false, depth: null, colors: true }), '\n>>---------\n');/*-debug-*/
   }
 
-  var startTime = new Date();
-
   // setInterval
   var totalSeconds = 0;
   console.log(totalSeconds + 's');
@@ -19,9 +17,8 @@ module.exports = function faultTolerantGetRandom(opts, cb) {
     totalSeconds++;
     console.log(totalSeconds + 's');
     if (totalSeconds * 1000 >= opts.maxTotalTimeout) {
-      // TODO: should we kill process here
-      console.log('clearInterval(tid)');
       clearInterval(tid);
+      throw new Error('timeout');
     }
   }, 1000);
 
@@ -43,12 +40,6 @@ module.exports = function faultTolerantGetRandom(opts, cb) {
 
     get10orError(function(err, resultString) {
       var currentDate = new Date();
-      var timeElapsed = currentDate - startTime;
-
-      if (timeElapsed >= opts.maxTotalTimeout) {
-        var errorMessage = 'timeElapsed: ' + timeElapsed;
-        return cb(new Error(errorMessage), operation.errors(), null);
-      }
 
       if (operation.retry(err)) {
         return;
