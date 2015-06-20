@@ -15,6 +15,13 @@ var opts = {
   showTimeoutsArray: false
 };
 
+var wait = 20;
+opts = {
+  minTimeout: 1 * 1000,
+  maxTimeout: wait * 1000,
+  randomize: true
+};
+
 faultTolerantGetRandom(opts, function(err, errors, resultString) {
 
   console.log('\n\n----THE END----\n');
