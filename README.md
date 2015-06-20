@@ -8,7 +8,8 @@
 azk shell
 
 # execute node
-root@5fbfbeea1b1e:/azk/example# node index.js
+root@xxxx:/azk/example# npm i
+root@xxxx:/azk/example# node index.js
 ```
 
 ## with node instaled
