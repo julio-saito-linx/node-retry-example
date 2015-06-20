@@ -6,6 +6,7 @@
   "author": "saitodisse",
   "license": "Apache-2.0",
   "dependencies": {
+    "backoff": "^2.4.1",
     "bluebird": "^2.9.30",
     "retry": "^0.6.1"
   }
